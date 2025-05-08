@@ -1,0 +1,4 @@
+texto*
+*.exe
+__pycache__
+.vscode/
