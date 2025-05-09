@@ -1,5 +1,9 @@
 import random
 import sys
+import time
+import copy
+
+from algorithms import insertion_sort
 
 def generate_random_data(size):
     return [random.randint(0, size * 10) for _ in range(size)]
@@ -16,6 +20,21 @@ step = 10
 
 num_repetitions = 100
 
+sort_function = insertion_sort
+
 for size in range(start_size, max_size + 1, step):
     data = generate_worst_case_data(size)
-    print(data)
+    #print(data)
+
+    elapsed_time = 0
+
+    data_to_sort = copy.deepcopy(data)
+
+    start_time = time.time()
+    sort_function(data_to_sort)
+    end_time = time.time()
+
+    elapsed_time = (end_time - start_time)
+
+    print(size)
+    print(elapsed_time)
