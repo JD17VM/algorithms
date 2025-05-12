@@ -26,15 +26,18 @@ for size in range(start_size, max_size + 1, step):
     data = generate_worst_case_data(size)
     #print(data)
 
-    elapsed_time = 0
+    total_elapsed_time = 0
 
-    data_to_sort = copy.deepcopy(data)
+    for repetition in range(num_repetitions):
+        data_to_sort = copy.deepcopy(data)
 
-    start_time = time.time()
-    sort_function(data_to_sort)
-    end_time = time.time()
+        start_time = time.time()
+        sort_function(data_to_sort)
+        end_time = time.time()
 
-    elapsed_time = (end_time - start_time)
+        total_elapsed_time += (end_time - start_time)
+
+    average_elapsed_time = total_elapsed_time / num_repetitions
 
     print(size)
-    print(elapsed_time)
+    print(average_elapsed_time)
