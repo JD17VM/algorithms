@@ -3,7 +3,7 @@ import sys
 import time
 import copy
 
-from algorithms import insertion_sort
+from algorithms import insertion_sort, merge_sort
 
 def generate_random_data(size):
     return [random.randint(0, size * 10) for _ in range(size)]
@@ -14,13 +14,17 @@ def generate_worst_case_data(size):
 argv = sys.argv
 
 max_size = int(argv[1])
+algorithm_name = argv[2].lower()
 
 start_size = 10
 step = 10
 
 num_repetitions = 100
 
-sort_function = insertion_sort
+if algorithm_name == "insertion":
+    sort_function = insertion_sort
+elif algorithm_name == "merge":
+    sort_function = merge_sort
 
 for size in range(start_size, max_size + 1, step):
     data = generate_worst_case_data(size)
