@@ -2,3 +2,5 @@ texto*
 *.exe
 __pycache__
 .vscode/
+*.png
+*.dat
