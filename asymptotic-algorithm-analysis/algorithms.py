@@ -11,32 +11,54 @@ def insertion_sort(arr):
     return arr 
 
 
-def merge(left, right):
-    result = []
-    i, j = 0, 0
+def merge(A, p, q, r):
+    nL = q - p + 1
+    nR = r - q
 
-    while i < len(left) and j < len(right):
-        if left[i] < right[j]:
-            result.append(left[i])
+    L = [0] * nL
+    R = [0] * nR
+
+    for i in range(nL):
+        L[i] = A[p + i]
+    for j in range(nR):
+        R[j] = A[q + 1 + j]
+
+    i = 0
+    j = 0
+    k = p
+
+    while i < nL and j < nR:
+        if L[i] <= R[j]:
+            A[k] = L[i]
             i += 1
         else:
-            result.append(right[j])
+            A[k] = R[j]
             j += 1
+        k += 1
 
-    result.extend(left[i:])
-    result.extend(right[j:])
+    while i < nL:
+        A[k] = L[i]
+        i += 1
+        k += 1
 
-    return result
+    while j < nR:
+        A[k] = R[j]
+        j += 1
+        k += 1
+
+def merge_sort_recursive(A, p, r):
+    if p >= r:
+        return
+
+    q = (p + r) // 2
+
+    merge_sort_recursive(A, p, q)
+    merge_sort_recursive(A, q + 1, r)
+    merge(A, p, q, r)
 
 def merge_sort(arr):
-    if len(arr) <= 1:
+    if not arr or len(arr) <= 1:
         return arr
 
-    mid = len(arr) // 2
-    left_half = arr[:mid]
-    right_half = arr[mid:]
-
-    left_sorted = merge_sort(left_half)
-    right_sorted = merge_sort(right_half)
-
-    return merge(left_sorted, right_sorted)
+    merge_sort_recursive(arr, 0, len(arr) - 1)
+    return arr
