@@ -22,8 +22,8 @@ GNUPLOT_SCRIPT_FILE="temp_plot_commands.gp"
 cat << EOF > "$GNUPLOT_SCRIPT_FILE"
 set terminal pngcairo size 1024,768 enhanced font 'Verdana,10'
 set output '${PLOT_OUTPUT_FILENAME}'
-set xlabel 'Tamaño de Entrada (N)'
-set ylabel 'Tiempo Promedio (segundos)'
+set xlabel 'Input Size (N)'
+set ylabel 'Average Time (seconds)'
 set grid
 set key top left
 set logscale y
@@ -39,7 +39,7 @@ if [ "$COMPARISON_MODE" == "true" ]; then
     fi
 
     cat << EOF >> "$GNUPLOT_SCRIPT_FILE"
-set title 'Comparacion: ${ALG_NAME1} Sort vs ${ALG_NAME2} Sort (Worst-Case)'
+set title '${ALG_NAME1} Sort vs ${ALG_NAME2} Sort comparation (Worst-Case)'
 plot '${DATA_FILE1}' using 1:2 with linespoints title '${ALG_NAME1}' lc rgb 'blue' pt 7 ps 1, \
      '${DATA_FILE2}' using 1:2 with linespoints title '${LEGEND_ALG2_NAME}' lc rgb 'red' pt 5 ps 1
 EOF

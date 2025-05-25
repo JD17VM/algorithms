@@ -21,7 +21,7 @@ g++ data_generator.cpp -o data_generator
 - The name of the algorithm being analyzed.
 
 ```Bash
-./data_generator main.py 500 insertion
+./data_generator python/main.py 500 insertion
 ```
 
 ## Step 2: Generating the Plot Image (Bash Script)
