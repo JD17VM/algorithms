@@ -25,13 +25,23 @@ vector<int> generate_worst_case_data(int size) {
     return data;
 }
 
-int main() {
-    int size = 200;
-    //vector<int> data = generate_worst_case_data(size);
-    vector<int> data = generate_random_data(size);
-
-    for (int number : data) {
+void print_int_vector(const vector<int> vector){
+    for (int number : vector) {
         cout << number << " ";
+    }
+}
+
+int main() {
+
+    int max_size = 100;
+    int start_size = 10;
+    int step = 10;
+    int num_repetitions = 100;
+
+    for (int size = start_size; size <= max_size; size += step) {
+        vector<int> data = generate_worst_case_data(size);
+        print_int_vector(data);
+        cout<<endl;
     }
 
     return 0;
