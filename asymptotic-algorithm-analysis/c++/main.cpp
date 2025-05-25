@@ -2,6 +2,10 @@
 #include <vector>
 #include <string>
 #include <cstdlib>
+#include <ctime>
+#include <chrono>
+
+#include "algorithms.h"
 
 using namespace std;
 
@@ -33,15 +37,31 @@ void print_int_vector(const vector<int> vector){
 
 int main() {
 
-    int max_size = 100;
+    int max_size = 300;
     int start_size = 10;
     int step = 10;
     int num_repetitions = 100;
 
     for (int size = start_size; size <= max_size; size += step) {
         vector<int> data = generate_worst_case_data(size);
-        print_int_vector(data);
-        cout<<endl;
+        
+        double total_elapsed_time = 0;
+
+        for (int repetition = 0; repetition < num_repetitions; ++repetition) {
+            vector<int> data_to_sort = data;
+
+            auto start_time = chrono::high_resolution_clock::now();
+            insertion_sort(data_to_sort);
+            auto end_time = chrono::high_resolution_clock::now();
+
+            chrono::duration<double> elapsed = end_time - start_time;
+            total_elapsed_time += elapsed.count();
+        }
+
+        double average_elapsed_time = total_elapsed_time / num_repetitions;
+
+        cout << size << endl;
+        cout << average_elapsed_time << endl;
     }
 
     return 0;
