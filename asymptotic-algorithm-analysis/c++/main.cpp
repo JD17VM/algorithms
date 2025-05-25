@@ -35,9 +35,9 @@ void print_int_vector(const vector<int> vector){
     }
 }
 
-int main() {
+int main(int argc, char* argv[]) {
 
-    int max_size = 300;
+    int max_size = stoi(argv[1]);
     int start_size = 10;
     int step = 10;
     int num_repetitions = 100;
