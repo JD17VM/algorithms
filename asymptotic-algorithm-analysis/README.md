@@ -5,22 +5,48 @@
 
 # **Execution**
 
-## Compilation of the Plot Generator:
-Create the executable program responsible for managing the benchmarking and plotting.
+## Step 1: Generating Performance Data (.dat file)
+
+### Compilation of the Data Generator:
 
 ```Bash
-g++ plot_generator.cpp -o plot_generator
+g++ data_generator.cpp -o data_generator
 ```
 
-## Program Invocation:
-Execute the `plot_generator` program from the terminal. It requires specific command-line arguments: 
+### Data Generation Invocation:
 
 - The script that performs the algorithm testing, 
 - The maximum data size for the benchmark
 - The name of the algorithm being analyzed.
 
 ```Bash
-./plot_generator main.py 100 insertion
+./data_generator main.py 500 insertion
 ```
 
-Upon successful execution, a PNG graphimage graph will be generated in the current directory (`insertion_performance_plot.png`).
+## Step 2: Generating the Plot Image (Bash Script)
+
+This step uses the Bash script plot_algorithm_performance.sh to take the `.dat` file generated in Step 1 and create a visual plot using Gnuplot.
+
+### Script Invocation:
+
+Execute the `plot_algorithm_performance.sh` script from the terminal. It requires two command-line arguments (or four if comparing two algorithms):
+
+1. The path to the input .dat file (generated in Step 1).
+2. The name of the algorithm (this helps in naming the output plot and its title).
+
+```
+./plot_algorithm_performance.sh temp_data_insertion.dat insertion
+```
+
+```
+./plot_algorithm_performance.sh temp_data_insertion.dat insertion temp_data_merge.dat merge
+```
+
+Upon successful execution, a PNG image of the graph will be generated in the current directory (e.g., `insertion_performance_plot.png` or `comparison_insertion_vs_merge_plot.png`).
+
+> [!CAUTION]
+>**Bash Script (`.sh`) Execution**
+>* **Linux & macOS:** Runs natively. Ensure it's executable (e.g., `chmod +x plot_algorithm_performance.sh`) before running.
+>* **Windows:** This script will not run in the standard Command Prompt (CMD) or PowerShell. It requires a Bash environment.
+> 
+> **Recommended for Windows:** Use Git Bash (commonly bundled with Git for Windows) or Windows Subsystem for Linux (WSL).
