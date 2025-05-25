@@ -9,32 +9,32 @@ using namespace std;
 
 const int MAX_BUFFER_SIZE = 256;
 
-string generarDatosParaAlgoritmo(const string& python_script_name,
+string generateDataForAlgorithm(const string& system_command,
                                  const string& max_size_arg,
                                  const string& algorithm_name) {
                                     
     string temp_data_filename = "temp_data_" + algorithm_name + ".dat";
 
-    ostringstream python_command_ss;
-    python_command_ss << "python " << python_script_name << " " << max_size_arg << " " << algorithm_name;
-    string python_command = python_command_ss.str();
+    ostringstream command_ss;
+    command_ss << system_command << " " << max_size_arg << " " << algorithm_name;
+    string command = command_ss.str();
 
-    FILE* python_pipe = popen(python_command.c_str(), "r");
-    if (!python_pipe) {
+    FILE* pipe = popen(command.c_str(), "r");
+    if (!pipe) {
         return "";
     }
 
     ofstream temp_data_file(temp_data_filename);
     if (!temp_data_file.is_open()) {
-        pclose(python_pipe);
+        pclose(pipe);
         return "";
     }
 
     char buffer_size[MAX_BUFFER_SIZE];
     char buffer_time[MAX_BUFFER_SIZE];
 
-    while (fgets(buffer_size, sizeof(buffer_size), python_pipe) != nullptr) {
-        if (fgets(buffer_time, sizeof(buffer_time), python_pipe) == nullptr) {
+    while (fgets(buffer_size, sizeof(buffer_size), pipe) != nullptr) {
+        if (fgets(buffer_time, sizeof(buffer_time), pipe) == nullptr) {
             break;
         }
         string line_size_str(buffer_size);
@@ -48,29 +48,29 @@ string generarDatosParaAlgoritmo(const string& python_script_name,
     }
 
     temp_data_file.close();
-    pclose(python_pipe);
+    pclose(pipe);
     return temp_data_filename;
 }
 
 int main(int argc, char *argv[]) {
     if (argc != 4) {
-        cerr << "Uso: " << argv[0] << " <script_python.py> <tamano_max> <nombre_algoritmo>" << endl;
-        cerr << "Ejemplo: " << argv[0] << " main.py 200 insertion" << endl;
+        cerr << "Use: " << argv[0] << " <system_command> <max_size> <algorithm_name>" << endl;
+        cerr << "Example: " << argv[0] << " main.py 200 insertion" << endl;
         return 1; 
     }
 
-    string python_script_name = argv[1];
+    string system_command = argv[1];
     string max_size_arg = argv[2];
     string algorithm_name_arg = argv[3];
     
     string temp_data_filename;
     
-    temp_data_filename = generarDatosParaAlgoritmo(python_script_name, max_size_arg, algorithm_name_arg);
+    temp_data_filename = generateDataForAlgorithm(system_command, max_size_arg, algorithm_name_arg);
     if (temp_data_filename.empty()) {
-        cerr << "Error generando datos para " << algorithm_name_arg << endl;
+        cerr << "Error generating data for " << algorithm_name_arg << endl;
         return 1;
     }
-    cout << "Archivo de datos generado: " << temp_data_filename << endl;
+    cout << "Data file generated: " << temp_data_filename << endl;
 
     return 0; 
 }

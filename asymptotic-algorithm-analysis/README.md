@@ -20,8 +20,16 @@ g++ data_generator.cpp -o data_generator
 - The maximum data size for the benchmark
 - The name of the algorithm being analyzed.
 
+**Python**
+
 ```Bash
-./data_generator python/main.py 500 insertion
+./data_generator "python python/main.py" 500 insertion
+```
+
+**C++**
+
+```Bash
+./data_generator "c++\main.exe" 500 insertion
 ```
 
 ## Step 2: Generating the Plot Image (Bash Script)
