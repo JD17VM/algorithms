@@ -11,9 +11,10 @@ const int MAX_BUFFER_SIZE = 256;
 
 string generateDataForAlgorithm(const string& system_command,
                                  const string& max_size_arg,
-                                 const string& algorithm_name) {
+                                 const string& algorithm_name,
+                                 const string& language_name) {
                                     
-    string temp_data_filename = "temp_data_" + algorithm_name + ".dat";
+    string temp_data_filename = "temp_data_" + algorithm_name + "_" + language_name +".dat";
 
     ostringstream command_ss;
     command_ss << system_command << " " << max_size_arg << " " << algorithm_name;
@@ -53,7 +54,7 @@ string generateDataForAlgorithm(const string& system_command,
 }
 
 int main(int argc, char *argv[]) {
-    if (argc != 4) {
+    if (argc != 5) {
         cerr << "Use: " << argv[0] << " <system_command> <max_size> <algorithm_name>" << endl;
         cerr << "Example: " << argv[0] << " main.py 200 insertion" << endl;
         return 1; 
@@ -62,10 +63,11 @@ int main(int argc, char *argv[]) {
     string system_command = argv[1];
     string max_size_arg = argv[2];
     string algorithm_name_arg = argv[3];
+    string language_name_arg = argv[4];
     
     string temp_data_filename;
     
-    temp_data_filename = generateDataForAlgorithm(system_command, max_size_arg, algorithm_name_arg);
+    temp_data_filename = generateDataForAlgorithm(system_command, max_size_arg, algorithm_name_arg, language_name_arg);
     if (temp_data_filename.empty()) {
         cerr << "Error generating data for " << algorithm_name_arg << endl;
         return 1;

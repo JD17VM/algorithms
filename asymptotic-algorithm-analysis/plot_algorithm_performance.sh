@@ -39,13 +39,13 @@ if [ "$COMPARISON_MODE" == "true" ]; then
     fi
 
     cat << EOF >> "$GNUPLOT_SCRIPT_FILE"
-set title '${ALG_NAME1} Sort vs ${ALG_NAME2} Sort comparation (Worst-Case)'
+set title '${ALG_NAME1} vs ${ALG_NAME2} comparation (Worst-Case)'
 plot '${DATA_FILE1}' using 1:2 with linespoints title '${ALG_NAME1}' lc rgb 'blue' pt 7 ps 1, \
      '${DATA_FILE2}' using 1:2 with linespoints title '${LEGEND_ALG2_NAME}' lc rgb 'red' pt 5 ps 1
 EOF
 else
     cat << EOF >> "$GNUPLOT_SCRIPT_FILE"
-set title '${ALG_NAME1} Sort Performance (Worst-Case)'
+set title '${ALG_NAME1} Performance (Worst-Case)'
 plot '${DATA_FILE1}' using 1:2 with linespoints title '${ALG_NAME1}' lc rgb 'blue' pt 7 ps 1
 EOF
 fi
